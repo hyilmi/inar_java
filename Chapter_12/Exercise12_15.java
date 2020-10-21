@@ -10,7 +10,7 @@ import java.util.Scanner;
 public class Exercise12_15 {
 
 	public static void main(String[] args) throws IOException {
-		File file = new File("src/chapter12/fileTest.java");
+		File file = new File("src/test3.txt");
 
 		if (file.exists()) {
 			System.out.println("File already exists.");
@@ -19,11 +19,11 @@ public class Exercise12_15 {
 			file.createNewFile();
 		}
 
-		PrintWriter output = new PrintWriter(file);
-
-		for (int i = 0; i < 100; i++) {
-			int num = (int)(Math.random() * 101);
-			output.print(num + " ");
+		try (PrintWriter output = new PrintWriter(file)) {
+			for (int i = 0; i < 100; i++) {
+				int num = (int) (Math.random() * 1001);
+				output.print(num + " ");
+			}
 		}
 
 		int[] result = new int[100];
@@ -37,11 +37,11 @@ public class Exercise12_15 {
 			}
 
 		} catch (FileNotFoundException e) {
-			
+
 		}
-		
+
 		Arrays.sort(result);
-		
+
 		for (int i = 0; i < result.length; i++) {
 			System.out.print(result[i] + " ");
 			if ((i + 1) % 10 == 0) {

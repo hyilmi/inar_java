@@ -2,6 +2,7 @@ package chapter12;
 
 import java.io.File;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Exercise12_11 {
@@ -15,19 +16,22 @@ public class Exercise12_11 {
 		System.out.println("Enter word to filter out: ");
 		String word = inputUser.next();
 		
-		try(
-				Scanner input = new Scanner(file);
-				PrintWriter output = new PrintWriter(file);
+		ArrayList<String> list = new ArrayList<>(); 
+		try (
+			Scanner input = new Scanner(file);
 		) {
-				while(input.hasNext()) {
-					String s = input.next();
-					if (word.matches(s)) {
-						
-					}
-				}
+			while (input.hasNext()) {
+				String s1 = input.nextLine();
+				String s2 = s1.replaceAll(word, "");
+				list.add(s2);
+			}
+		}
+		
+		try(PrintWriter output = new PrintWriter(file)){
+			for (int i = 0; i < list.size(); i++) {
+				output.println(list.get(i));
+			}
 			
-		} catch (Exception e) {
-			// TODO: handle exception
 		}
 	}
 }
